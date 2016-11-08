@@ -6,6 +6,5 @@ import com.example.francescovoto.vimer_test.data.entities.City;
 import rx.Subscriber;
 
 public interface CityInteractionInput {
-    void getCity();
-    void setCityOutput(Subscriber<City[]> subscriber);
+    void getCity(Subscriber<City[]> subscriber);
 }

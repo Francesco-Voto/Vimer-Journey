@@ -6,6 +6,5 @@ import com.example.francescovoto.vimer_test.data.entities.CityDetails;
 import rx.Subscriber;
 
 public interface DetailsInteractionInput {
-    void getDetails(String name);
-    void setDetailsOutput(Subscriber<CityDetails> subscriber);
+    void getDetails(Subscriber<CityDetails> subscriber,String name);
 }

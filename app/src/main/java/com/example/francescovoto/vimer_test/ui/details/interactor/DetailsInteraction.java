@@ -11,23 +11,17 @@ import rx.schedulers.Schedulers;
 public class DetailsInteraction implements DetailsInteractionInput{
 
     private final ProductAPI mProductAPI;
-    private Subscriber<CityDetails> mSubscriber;
 
     public DetailsInteraction(ProductAPI productAPI){
         this.mProductAPI = productAPI;
     }
 
     @Override
-    public void getDetails(String name) {
+    public void getDetails(Subscriber<CityDetails> subscriber, String name) {
         mProductAPI.getCityDetails(name)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mSubscriber);
+                .subscribe(subscriber);
 
-    }
-
-    @Override
-    public void setDetailsOutput(Subscriber<CityDetails> subscriber) {
-        this.mSubscriber = subscriber;
     }
 }

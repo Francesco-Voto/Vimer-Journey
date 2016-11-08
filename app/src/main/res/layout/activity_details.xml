@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
+        <import type="android.view.View"/>
         <variable
             name="model"
             type="com.example.francescovoto.vimer_test.ui.details.viewmodel.DetailsViewModel"/>
@@ -66,5 +67,13 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
+
+        <ProgressBar
+            android:theme="@style/ProgressBar.CircularDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{model.mLoading ? View.VISIBLE : View.GONE}"
+            />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

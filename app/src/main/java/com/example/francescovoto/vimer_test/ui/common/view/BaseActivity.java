@@ -55,14 +55,28 @@ public abstract class BaseActivity extends AppCompatActivity{
     public void onResume() {
         super.onResume();
         if(mLifeCycleEventDelegate != null)
-            mLifeCycleEventDelegate.onStart();
+            mLifeCycleEventDelegate.onResume();
     }
 
     @Override
     public void onPause() {
         if(mLifeCycleEventDelegate != null)
-            mLifeCycleEventDelegate.onStart();
+            mLifeCycleEventDelegate.onPause();
         super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mLifeCycleEventDelegate != null)
+            mLifeCycleEventDelegate.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        if(mLifeCycleEventDelegate != null)
+            mLifeCycleEventDelegate.onStop();
+        super.onStop();
     }
 
     @Override

@@ -7,6 +7,10 @@ public interface ViewLifecycleInterface {
 
     void onCreate(@Nullable ViewModel.State savedInstanceState, @Nullable Bundle extras);
 
+    void onResume();
+
+    void onPause();
+
     void onStart();
 
     void onStop();

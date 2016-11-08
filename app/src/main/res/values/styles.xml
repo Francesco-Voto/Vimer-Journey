@@ -9,4 +9,9 @@
         <item name="android:windowBackground">@android:color/white</item>
     </style>
 
+
+    <style name="ProgressBar.CircularDark" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

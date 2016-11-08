@@ -25,7 +25,13 @@ public class DetailsViewModelImpl extends DetailsViewModel {
         if(extras != null)
             mCode = extras.getString(Constants.KEY);
 
-        final Subscriber<CityDetails> subscriber = new Subscriber<CityDetails>() {
+    }
+
+    @Override
+    public void onStart() {
+
+        mLoading.set(true);
+        mInteractionInput.getDetails(new Subscriber<CityDetails>() {
             @Override
             public void onCompleted() {
 
@@ -33,21 +39,18 @@ public class DetailsViewModelImpl extends DetailsViewModel {
 
             @Override
             public void onError(Throwable e) {
+
+                mLoading.set(false);
                 Log.e(getClass().getName(), e.getMessage());
             }
 
             @Override
             public void onNext(CityDetails city) {
+
+                mLoading.set(false);
                 mCityDetailsObservableField.set(city);
             }
-        };
-
-        this.mInteractionInput.setDetailsOutput(subscriber);
-    }
-
-    @Override
-    public void onStart() {
-        mInteractionInput.getDetails(mCode);
+        },mCode);
     }
 
     @Override
@@ -57,6 +60,15 @@ public class DetailsViewModelImpl extends DetailsViewModel {
 
     @Override
     public void onDestroy() {
+
+    }
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onPause() {
 
     }
 

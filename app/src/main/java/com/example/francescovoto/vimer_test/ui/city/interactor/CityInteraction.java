@@ -19,17 +19,12 @@ public class CityInteraction implements CityInteractionInput {
     }
 
     @Override
-    public void getCity() {
+    public void getCity(Subscriber<City[]> subscriber) {
         mProductAPI.getCategories()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mSubscriber);
+                .subscribe(subscriber);
 
-    }
-
-    @Override
-    public void setCityOutput(Subscriber<City[]> subscriber) {
-        this.mSubscriber = subscriber;
     }
 
 }

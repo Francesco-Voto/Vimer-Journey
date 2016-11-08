@@ -6,7 +6,7 @@ import com.example.francescovoto.vimer_test.data.network.API.ProductAPI;
 import com.example.francescovoto.vimer_test.di.scopes.PerModule;
 import com.example.francescovoto.vimer_test.ui.city.interactor.CityInteraction;
 import com.example.francescovoto.vimer_test.ui.city.interactor.CityInteractionInput;
-import com.example.francescovoto.vimer_test.ui.city.viewmodel.CityViewModel;
+import com.example.francescovoto.vimer_test.ui.city.viewmodel.CityViewModelImpl;
 import com.example.francescovoto.vimer_test.ui.city.wireframe.CityWireframe;
 import com.example.francescovoto.vimer_test.ui.details.interactor.DetailsInteraction;
 import com.example.francescovoto.vimer_test.ui.details.interactor.DetailsInteractionInput;
@@ -42,8 +42,8 @@ public class FlowModule {
 
     @PerModule
     @Provides
-    CityViewModel provideCategoryViewModel(CityInteractionInput categoryInteractionInput, CityWireframe cityWireframe) {
-        return new CityViewModel(categoryInteractionInput, cityWireframe);
+    CityViewModelImpl provideCategoryViewModel(CityInteractionInput categoryInteractionInput, CityWireframe cityWireframe) {
+        return new CityViewModelImpl(categoryInteractionInput, cityWireframe);
     }
 
     /**
