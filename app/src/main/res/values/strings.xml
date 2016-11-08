@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Vimer-Test</string>
+
+    <string name="content_description.city">City Image</string>
+
+    <string name="transition_image">ttni</string>
+</resources>
