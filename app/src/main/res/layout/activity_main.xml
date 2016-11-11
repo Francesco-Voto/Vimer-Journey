@@ -16,6 +16,11 @@
         android:background="@null"
         tools:context="com.example.francescovoto.vimer_test.ui.city.view.MainActivity">
 
+        <TextView
+            android:layout_centerInParent="true"
+            bind:text="@{viewModel.mStatus}"
+            style="@style/Text.Error"/>
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

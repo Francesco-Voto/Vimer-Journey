@@ -2,6 +2,9 @@ package com.example.francescovoto.vimer_test.di.modules;
 
 import android.content.Context;
 
+import com.example.francescovoto.vimer_test.data.network.InternetConnection;
+import com.example.francescovoto.vimer_test.data.network.ManagerInterceptor;
+import com.example.francescovoto.vimer_test.data.network.NetworkStatus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -16,6 +19,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.schedulers.Schedulers;
 
 @Module
 public class NetModule {
@@ -29,7 +33,7 @@ public class NetModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
@@ -50,15 +54,26 @@ public class NetModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Cache cache) {
+    OkHttpClient provideOkHttpClient(Cache cache, NetworkStatus networkStatus) {
         return new OkHttpClient
                 .Builder()
                 .cache(cache)
+                .addInterceptor(new ManagerInterceptor(networkStatus))
                 .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
     }
 
+    @Provides
+    @Singleton
+    NetworkStatus provideNetworkManager() {
+        return new NetworkStatus();
+    }
 
+    @Provides
+    @Singleton
+    InternetConnection provideInternetConnection(Context context) {
+        return new InternetConnection(context);
+    }
 }

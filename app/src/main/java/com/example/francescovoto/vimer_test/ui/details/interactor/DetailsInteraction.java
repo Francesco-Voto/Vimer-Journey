@@ -19,9 +19,7 @@ public class DetailsInteraction implements DetailsInteractionInput{
     @Override
     public void getDetails(Subscriber<CityDetails> subscriber, String name) {
         mProductAPI.getCityDetails(name)
-                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
-
     }
 }

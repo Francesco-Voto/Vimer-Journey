@@ -4,4 +4,13 @@
     <string name="content_description.city">City Image</string>
 
     <string name="transition_image">ttni</string>
+
+    <string name="empty">No City</string>
+
+
+    <!-- Network Error -->
+    <string name="network_error.unreachable">Server Unreachable</string>
+    <string name="network_error.unknown">An error occurred</string>
+    <string name="network_error.no_internet">No internet connection</string>
+    <string name="network_error.error">An error occurs. Please retry</string>
 </resources>

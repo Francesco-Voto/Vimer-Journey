@@ -4,6 +4,8 @@ package com.example.francescovoto.vimer_test.di.components;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.francescovoto.vimer_test.data.network.InternetConnection;
+import com.example.francescovoto.vimer_test.data.network.NetworkStatus;
 import com.example.francescovoto.vimer_test.di.modules.AppModule;
 import com.example.francescovoto.vimer_test.di.modules.NetModule;
 
@@ -19,5 +21,7 @@ public interface AppComponent {
     Context provideContext();
     SharedPreferences provideSharedPreferences();
     Retrofit provideRetrofit();
+    NetworkStatus provideNetworkManager();
+    InternetConnection provideInternetConnection();
 
 }

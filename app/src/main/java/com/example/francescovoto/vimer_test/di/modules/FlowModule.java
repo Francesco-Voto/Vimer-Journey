@@ -3,6 +3,7 @@ package com.example.francescovoto.vimer_test.di.modules;
 import android.app.Activity;
 
 import com.example.francescovoto.vimer_test.data.network.API.ProductAPI;
+import com.example.francescovoto.vimer_test.data.network.InternetConnection;
 import com.example.francescovoto.vimer_test.di.scopes.PerModule;
 import com.example.francescovoto.vimer_test.ui.city.interactor.CityInteraction;
 import com.example.francescovoto.vimer_test.ui.city.interactor.CityInteractionInput;
@@ -30,8 +31,8 @@ public class FlowModule {
      */
     @PerModule
     @Provides
-    CityInteractionInput provideCategoryInteractor(ProductAPI productAPI) {
-        return new CityInteraction(productAPI);
+    CityInteractionInput provideCategoryInteractor(ProductAPI productAPI, InternetConnection internetConnection) {
+        return new CityInteraction(productAPI, internetConnection);
     }
 
     @PerModule
