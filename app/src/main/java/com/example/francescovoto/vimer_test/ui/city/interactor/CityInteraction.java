@@ -3,6 +3,7 @@ package com.example.francescovoto.vimer_test.ui.city.interactor;
 
 import com.example.francescovoto.vimer_test.data.entities.City;
 import com.example.francescovoto.vimer_test.data.network.API.ProductAPI;
+import com.example.francescovoto.vimer_test.data.network.DefaultWrapperSubscriber;
 import com.example.francescovoto.vimer_test.data.network.InternetConnection;
 import com.example.francescovoto.vimer_test.data.network.WrapperSubscriber;
 
@@ -18,7 +19,7 @@ public class CityInteraction implements CityInteractionInput {
     }
 
     @Override
-    public void getCity(WrapperSubscriber<City[]> subscriber) {
+    public void getCity(DefaultWrapperSubscriber<City[]> subscriber) {
         mProductAPI.getCategories()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

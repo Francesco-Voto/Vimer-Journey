@@ -8,15 +8,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.francescovoto.vimer_test.R;
 import com.example.francescovoto.vimer_test.data.entities.City;
-import com.example.francescovoto.vimer_test.data.network.NetworkStatus;
-import com.example.francescovoto.vimer_test.data.network.WrapperSubscriber;
+import com.example.francescovoto.vimer_test.data.network.DefaultWrapperSubscriber;
 import com.example.francescovoto.vimer_test.databinding.ActivityMainBinding;
 import com.example.francescovoto.vimer_test.ui.city.interactor.CityInteractionInput;
 import com.example.francescovoto.vimer_test.ui.city.wireframe.CityWireframe;
 import com.example.francescovoto.vimer_test.ui.common.rv.ClickHandler;
 import com.example.francescovoto.vimer_test.ui.common.rv.RecyclerAdapter;
-
-import static com.example.francescovoto.vimer_test.data.network.NetworkStatus.*;
 
 public class CityViewModelImpl extends CityViewModel {
 
@@ -73,7 +70,7 @@ public class CityViewModelImpl extends CityViewModel {
     private void updateView(){
         mStatusVisibility.set(false);
         mLoading.set(true);
-        mInteractionInput.getCity(new WrapperSubscriber<City[]>(){
+        mInteractionInput.getCity(new DefaultWrapperSubscriber<City[]>(){
 
             @Override
             public void onCompleted() {
@@ -91,24 +88,29 @@ public class CityViewModelImpl extends CityViewModel {
             }
 
             @Override
-            public void onStatusError(@NetworkStatus.Status int networkStatus) {
+            public void onErrorServerUnreachable() {
+                mStatus.set(R.string.network_error_unreachable);
+            }
+
+            @Override
+            public void onErrorServerUnknown() {
+                mStatus.set(R.string.network_error_unknown);
+            }
+
+            @Override
+            public void onErrorNoInternet() {
+                mStatus.set(R.string.network_error_no_internet);
+            }
+
+            @Override
+            public void onErrorInternalServerError() {
+                mStatus.set(R.string.network_error_error);
+            }
+
+            @Override
+            public void onErrorCompleted() {
                 mStatusVisibility.set(true);
                 mLoading.set(false);
-                switch (networkStatus) {
-                    case NO_INTERNET:
-                        mStatus.set(R.string.network_error_no_internet);
-                        break;
-                    case SERVER_UNREACHABLE:
-                        mStatus.set(R.string.network_error_unreachable);
-                        break;
-                    case SERVER_ERROR:
-                        mStatus.set(R.string.network_error_error);
-                        break;
-                    case SERVER_UNKNOWN:
-                    default:
-                        mStatus.set(R.string.network_error_unknown);
-                        break;
-                }
             }
         });
     }
