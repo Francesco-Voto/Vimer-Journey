@@ -14,5 +14,4 @@ import retrofit2.Retrofit;
 public interface NetComponent {
 
     Retrofit provideRetrofit();
-    NetworkStatus provideNetworkManager();
 }

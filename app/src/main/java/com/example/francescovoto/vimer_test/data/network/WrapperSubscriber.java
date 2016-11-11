@@ -1,34 +1,30 @@
 package com.example.francescovoto.vimer_test.data.network;
 
-import android.support.annotation.IntDef;
 
 import java.io.IOException;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
-
 public abstract class WrapperSubscriber<T> extends Subscriber<T> {
+
     @Override
     public void onError(Throwable e) {
-        if(e instanceof IOException)
-            onStatusError(NetworkStatus.SERVER_ERROR);
+
+        if(e instanceof IOException) {
+            onStatusError(NetworkStatus.NO_INTERNET);
+            return;
+        }
+        if(e instanceof HttpException) {
+            if (((HttpException) e).code() == 404)
+                onStatusError(NetworkStatus.SERVER_ERROR);
+            if(((HttpException)e).code() == 504)
+                onStatusError(NetworkStatus.SERVER_UNREACHABLE);
+            return;
+        }
+        onStatusError(NetworkStatus.SERVER_UNKNOWN);
     }
 
-    public void onStatusError(int networkStatus){
-
-    }
-
-    public static final int NETWORK_OK = -1;
-
-    public static final int NO_INTERNET = 0;
-    public static final int SERVER_UNREACHABLE = 1;
-    public static final int SERVER_ERROR = 2;
-    public static final int SERVER_UNKNOWN = 3;
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({NO_INTERNET, SERVER_UNKNOWN, SERVER_ERROR, SERVER_UNREACHABLE, NETWORK_OK })
-    public @interface Status {}
+    public abstract void onStatusError(@NetworkStatus.Status int networkStatus);
 
 }

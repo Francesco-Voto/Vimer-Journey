@@ -78,7 +78,7 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    final SUPPORT_LIBRARY_VERSION =     '25.0.0'
+    final SUPPORT_LIBRARY_VERSION =     '24.2.1'
     final RETROFIT_VERSION =            '2.1.0'
     final DAGGER_VERSION =              '2.2'
     final PARCEL_VERSION =              '1.1.6'

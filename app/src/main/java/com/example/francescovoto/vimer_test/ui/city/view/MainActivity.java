@@ -1,11 +1,12 @@
 package com.example.francescovoto.vimer_test.ui.city.view;
 
 import android.databinding.DataBindingUtil;
+import android.view.View;
 
 import com.example.francescovoto.vimer_test.R;
 import com.example.francescovoto.vimer_test.databinding.ActivityMainBinding;
 import com.example.francescovoto.vimer_test.di.components.ModuleComponent;
-import com.example.francescovoto.vimer_test.ui.city.viewmodel.CityViewModelImpl;
+import com.example.francescovoto.vimer_test.ui.city.viewmodel.CityViewModel;
 import com.example.francescovoto.vimer_test.ui.common.view.BaseActivity;
 import com.example.francescovoto.vimer_test.ui.common.viewmodel.ViewLifecycleInterface;
 
@@ -14,7 +15,7 @@ import javax.inject.Inject;
 public class MainActivity extends BaseActivity {
 
     @Inject
-    CityViewModelImpl mCategoryViewModel;
+    CityViewModel mCategoryViewModel;
 
     @Override
     protected void doInjection(ModuleComponent moduleComponent) {
@@ -29,4 +30,7 @@ public class MainActivity extends BaseActivity {
         return mCategoryViewModel;
     }
 
+    public void onRefresh(View view) {
+        mCategoryViewModel.onRefresh();
+    }
 }

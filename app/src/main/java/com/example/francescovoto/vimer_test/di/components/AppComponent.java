@@ -21,7 +21,5 @@ public interface AppComponent {
     Context provideContext();
     SharedPreferences provideSharedPreferences();
     Retrofit provideRetrofit();
-    NetworkStatus provideNetworkManager();
-    InternetConnection provideInternetConnection();
 
 }

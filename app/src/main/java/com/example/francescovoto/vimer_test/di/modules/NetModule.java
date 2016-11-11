@@ -2,9 +2,6 @@ package com.example.francescovoto.vimer_test.di.modules;
 
 import android.content.Context;
 
-import com.example.francescovoto.vimer_test.data.network.InternetConnection;
-import com.example.francescovoto.vimer_test.data.network.ManagerInterceptor;
-import com.example.francescovoto.vimer_test.data.network.NetworkStatus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -54,26 +51,14 @@ public class NetModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Cache cache, NetworkStatus networkStatus) {
+    OkHttpClient provideOkHttpClient(Cache cache) {
         return new OkHttpClient
                 .Builder()
                 .cache(cache)
-                .addInterceptor(new ManagerInterceptor(networkStatus))
                 .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
     }
 
-    @Provides
-    @Singleton
-    NetworkStatus provideNetworkManager() {
-        return new NetworkStatus();
-    }
-
-    @Provides
-    @Singleton
-    InternetConnection provideInternetConnection(Context context) {
-        return new InternetConnection(context);
-    }
 }
